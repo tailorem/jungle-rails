@@ -1,0 +1,13 @@
+<h1>Register</h1>
+
+<%= form_for :user, url: '/users' do |form| %>
+
+  <div>First Name: <%= form.text_field :first_name %></div>
+  <div>Last Name: <%= form.text_field :last_name %></div>
+  <div>Email: <%= form.text_field :email %></div>
+  <div>Password: <%= form.password_field :password %></div>
+  <div>Password Confirmation: <%= form.password_field :password_confirmation %></div>
+  <div><%= form.submit "Submit" %></div>
+
+<% end %>
+
