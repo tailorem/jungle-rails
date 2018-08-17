@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hey, thanks for shopping with us! Your order number #<%= @order.id %>.</h1>
+    <p>
+      We are working on preparing your order.<br>
+    </p>
+    <div class="panel panel-default items">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th colspan="2">Product</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart_total = 0 %>
+          <% @order.line_items.each do |details| %>
+            <%= render 'item', details: details %>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="4">
+              TOTAL:
+            </th>
+            <th>
+              <%= @cart_total %>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>
