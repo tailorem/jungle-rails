@@ -1,6 +1,6 @@
 # Jungle
 
-A mini e-commerce application built with Rails 4.2 for purposes of learning Rails by example.
+A mini e-commerce application built with Rails 4.2 for purposes of learning Rails in an inherited code base.
 
 ## Dependencies
 
@@ -16,7 +16,7 @@ View available products, details and stock status. Add items to cart, or click t
 View product details, including quantity in stock and user reviews. Logged in users can add and delete their reviews.
 !["Screenshot of product details"](https://github.com/tailorem/jungle-rails/blob/master/docs/product_details.png?raw=true)
 
-View current cart contents and order total, and complete the order using Stripe.
+View current cart contents and order total, and complete the order with Stripe.
 !["Screenshot of cart view"](https://github.com/tailorem/jungle-rails/blob/master/docs/cart_view.png?raw=true)
 
 View order confirmation, including order details.
