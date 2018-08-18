@@ -8,18 +8,19 @@ class ReviewsController < ApplicationController
     puts review_params
 
     review = Review.new(review_params)
-    product = Product.find(params[:product_id])
+    # product = Product.find(params[:product_id])
     review.user = current_user
-    puts "THIS HAPPENED \n\n"
 
-    puts product
-
-    if review.save
-      redirect_to [:products], notice: 'Review posted!'
-    else
-      redirect_to product
-      # render :products
+    if review.valid?
+      review.save
     end
+    redirect_to Product.find(params[:product_id])
+  end
+
+  def destroy
+    review = Review.find(params[:id])
+    review.destroy
+    redirect_to Product.find(params[:product_id])
   end
 
   private
