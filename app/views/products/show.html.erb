@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="row">
-      <% @product.reviews.each do |review| %>
+      <% @product.reviews.reverse_each do |review| %>
       <% user = review.user %>
         <div>
           <p><strong>User <%= "#{user.first_name} #{user.last_name}" %> says: </strong></p>
@@ -39,23 +39,25 @@
       <% end %>
     </div>
 
-    <%= form_for @product, url: product_reviews_path(@product), method: 'post' do |form| %>
-      Add a review:
-      <ul>
-        <%= form.fields_for :reviews do |reviews_form| %>
-          <li>
-            <%= reviews_form.label :rating %>
-            <%= reviews_form.select :rating, options_for_select([['1'], ['2'], ['3'], ['4'], ['5']]) %>
-          </li>
-          <li>
-            <%= reviews_form.label :description %>
-            <%= reviews_form.text_field :description %>
-          </li>
-          <li><%= reviews_form.submit "Submit" %></li>
-        <% end %>
-      </ul>
-      <br /><br /><br />
+    <% if current_user.present? %>
+      <%= form_for @product, url: product_reviews_path(@product), method: 'post' do |form| %>
+        Add a review:
+        <ul>
+          <%= form.fields_for :reviews do |reviews_form| %>
+            <li>
+              <%= reviews_form.label :rating %>
+              <%= reviews_form.select :rating, options_for_select([[' '], ['1'], ['2'], ['3'], ['4'], ['5']]) %>
+            </li>
+            <li>
+              <%= reviews_form.label :description %>
+              <%= reviews_form.text_field :description %>
+            </li>
+            <li><%= reviews_form.submit "Submit" %></li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
+    <br /><br /><br />
 
   </article>
 
