@@ -8,79 +8,69 @@
 
     <div class="row">
 
+      <!-- Product info -->
       <div class="col-sm-4">
         <%= image_tag @product.image.url, class: 'main-img' %>
-
-        <% if current_user.present? %>
-          <%= form_for @product, url: product_reviews_path(@product), method: 'post' do |form| %>
-            Add a review:
-            <ul>
-              <%= form.fields_for :reviews do |reviews_form| %>
-                <li>
-                  <%= reviews_form.label :rating %>
-                  <%= reviews_form.select :rating, options_for_select([[' '], ['1'], ['2'], ['3'], ['4'], ['5']]) %>
-                </li>
-                <li>
-                  <%= reviews_form.label :description %>
-                  <%= reviews_form.text_field :description %>
-                </li>
-                <li><%= reviews_form.submit "Submit" %></li>
-              <% end %>
-            </ul>
-          <% end %>
-        <% end %>
-
       </div>
 
       <div class="col-sm-8">
         <dl class="dl-horizontal">
-          <dt>Name</dt>
-          <dd><%= @product.name %></dd>
           <dt>Description</dt>
           <dd><%= @product.description %></dd>
-          <dt>Quantity</dt>
+          <dt>In Stock</dt>
           <dd><%= @product.quantity %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
         </dl>
 
-        <!-- <h4>Reviews</h4> -->
-        <br /><br />
-      <% @product.reviews.reverse_each do |review| %>
-      <% user = review.user %>
         <dl class="dl-horizontal">
-          <dt></dt>
-          <dd>
-            <strong><%= "#{user.first_name} #{user.last_name}" %></strong>
-            <% review.rating.times do %>
-              <span style="color: goldenrod">★</span>
+
+          <!-- Form for adding a review -->
+          <% if current_user.present? %>
+            <%= form_for @product, url: product_reviews_path(@product), method: 'post' do |form| %>
+
+              <%= form.fields_for :reviews do |reviews_form| %>
+                <dt>Add Review</dt>
+                <dd><%= reviews_form.select :rating, options_for_select([['★★★★★', '5'], ['★★★★', '4'], ['★★★', '3'], ['★★', '2'], ['★', '1']]) %></dd>
+                <dd><%= reviews_form.text_field :description %></dd>
+                <dd><%= reviews_form.submit "Submit" %></dd>
+                <% end %>
             <% end %>
-            <% empty_stars = 5 - review.rating %>
-            <% empty_stars.times do %>
-              <span style="color: lightgrey">★</span>
-            <% end %>
-          </dd>
-          <dt></dt>
-          <dd>
-            <p><%= review.description %></p>
-          </dd>
-          <dt></dt>
-          <dd>
-            <% if user == current_user %>
-            <small>
-              <%= link_to 'Delete This Review', product_review_path(id: review.id, product_id: @product.id), method: :delete, data: { confirm: 'Are you sure?' } %>
-            </small>
-            <% end %>
-          </dd>
+          <% end %>
+
         </dl>
 
-      <% end %>
+        <!-- List of current product reviews -->
+        <dl class="dl-horizontal">
+          <% if @product.reviews.size >= 1 %>
+            <dd><h4>Reviews</h4></dd>
+          <% end %>
+          <% @product.reviews.reverse_each do |review| %>
+            <% user = review.user %>
+            <dd>
+              <strong><%= "#{user.first_name} #{user.last_name}" %></strong>
+              <% review.rating.times do %>
+                <span style="color: goldenrod">★</span>
+              <% end %>
+              <% empty_stars = 5 - review.rating %>
+              <% empty_stars.times do %>
+                <span style="color: lightgrey">★</span>
+              <% end %>
+            </dd>
+            <dd>
+              <p>
+                <%= review.description %>
+
+                <% if user == current_user %>
+                <br /><small><%= link_to 'Delete This Review', product_review_path(id: review.id, product_id: @product.id), method: :delete, data: { confirm: 'Are you sure?' } %></small>
+                <% end %>
+              </p>
+            </dd>
+          <% end %>
+        </dl>
 
       </div>
     </div>
-    <div class="col-sm-8">
-    </div>
-
   </article>
 
 </section>

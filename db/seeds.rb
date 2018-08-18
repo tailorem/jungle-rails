@@ -104,7 +104,7 @@ cat2.products.create!({
   name:  'World\'s Largest Smartwatch',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('electronics3.jpg'),
-  quantity: 32,
+  quantity: 0,
   price: 2_026.29
 })
 
@@ -128,7 +128,7 @@ cat3.products.create!({
   name:  'Red Bookshelf',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture3.jpg'),
-  quantity: 0,
+  quantity: 4,
   price: 2_483.75
 })
 
@@ -139,8 +139,8 @@ puts "Re-creating Users ..."
 User.destroy_all
 
 User.create!({
-  first_name: "Taylour",
-  last_name: "M",
+  first_name: "Melanie",
+  last_name: "K",
   email: "test@test.test",
   password: "secret1",
   password_digest: "secret1"
@@ -148,7 +148,7 @@ User.create!({
 
 User.create!({
   first_name: "Franklin",
-  last_name: "Dog",
+  last_name: "D",
   email: "dog@dog.dog",
   password: "nosecrets",
   password_digest: "nosecrets"
