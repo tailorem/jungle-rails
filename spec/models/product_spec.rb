@@ -36,6 +36,7 @@ RSpec.describe Product, type: :model do
   end
 end
 
+
 # Using subject
 # RSpec.describe Product, type: :model do
 #   category = Category.new(name: "Test Things")
